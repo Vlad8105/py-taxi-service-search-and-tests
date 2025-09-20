@@ -18,7 +18,7 @@ class TaxiTest(TestCase):
 
     def test_driver_list(self):
         response = self.client.get(reverse("taxi:driver-list"))
-        self.assertEqual(response.status_code, 255)
+        self.assertEqual(response.status_code, 200)
 
     def test_car_list(self):
         response = self.client.get(reverse("taxi:car-list"))

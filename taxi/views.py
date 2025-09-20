@@ -57,8 +57,8 @@ class ManufacturerDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class CarListView(LoginRequiredMixin, generic.ListView):
     model = Car
+    queryset = Car.objects.select_related("manufacturer").order_by("model")
     paginate_by = 5
-    queryset = Car.objects.select_related("manufacturer")
 
 
 class CarDetailView(LoginRequiredMixin, generic.DetailView):
@@ -84,6 +84,7 @@ class CarDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class DriverListView(LoginRequiredMixin, generic.ListView):
     model = Driver
+    queryset = Driver.objects.order_by("last_name")
     paginate_by = 5
     template_name = "taxi/driver_list.html"
     context_object_name = "driver_list"
