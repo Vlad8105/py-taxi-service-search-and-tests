@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -93,7 +92,7 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
         queryset = super().get_queryset()
         query = self.request.GET.get("q")
         if query:
-            queryset = queryset.filter(user__username__icontains=query)
+            queryset = queryset.filter(username__icontains=query)
         return queryset
 
 
