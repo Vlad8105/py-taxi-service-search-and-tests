@@ -45,6 +45,7 @@ class ManufacturerListView(LoginRequiredMixin, generic.ListView):
             queryset = queryset.filter(Q(name__icontains=query))
         return queryset
 
+
 class ManufacturerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Manufacturer
     fields = "__all__"

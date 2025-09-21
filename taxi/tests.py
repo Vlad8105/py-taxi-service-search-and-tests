@@ -12,18 +12,26 @@ class TaxiTest(TestCase):
             password="testpassword",
         )
         self.client.login(username="testuser", password="testpassword")
-        self.manufacturer1 = Manufacturer.objects.create(name="Toyota", country="Japan")
-        self.manufacturer2 = Manufacturer.objects.create(name="Ford", country="USA")
+        self.manufacturer1 = Manufacturer.objects.create(
+            name="Toyota", country="Japan"
+        )
+        self.manufacturer2 = Manufacturer.objects.create(
+            name="Ford", country="USA"
+        )
 
-        self.car1 = Car.objects.create(model="Corolla", manufacturer=self.manufacturer1)
-        self.car2 = Car.objects.create(model="Mustang", manufacturer=self.manufacturer2)
+        self.car1 = Car.objects.create(
+            model="Corolla", manufacturer=self.manufacturer1
+        )
+        self.car2 = Car.objects.create(
+            model="Mustang", manufacturer=self.manufacturer2
+        )
 
         self.driver1 = Driver.objects.create_user(
             username="test_driver_1",
             first_name="John",
             last_name="Doe",
             password="driverpassword",
-            license_number = "ABCD-12345"
+            license_number="ABCD-12345"
         )
         self.driver2 = Driver.objects.create_user(
             username="another_driver_2",
@@ -34,7 +42,8 @@ class TaxiTest(TestCase):
         )
 
     def test_search_drivers_by_username(self):
-        response = self.client.get(reverse("taxi:driver-list") + "?q=test_driver")
+        response = self.client.get(reverse(
+            "taxi:driver-list") + "?q=test_driver")
 
         self.assertContains(response, self.driver1.username)
         self.assertNotContains(response, self.driver2.username)
@@ -46,7 +55,8 @@ class TaxiTest(TestCase):
         self.assertNotContains(response, self.car2.model)
 
     def test_search_manufacturers_by_name(self):
-        response = self.client.get(reverse("taxi:manufacturer-list") + "?q=Toyota")
+        response = self.client.get(reverse(
+            "taxi:manufacturer-list") + "?q=Toyota")
 
         self.assertContains(response, self.manufacturer1.name)
         self.assertNotContains(response, self.manufacturer2.name)
